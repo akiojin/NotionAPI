@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>NotionAPI</PackageId>
-    <VersionPrefix>0.1.5</VersionPrefix>
+    <VersionPrefix>0.1.6</VersionPrefix>
     <Authors>akiojin</Authors>
     <RepositoryUrl>https://github.com/akiojin/repo</RepositoryUrl>
     <ImplicitUsings>enable</ImplicitUsings>
