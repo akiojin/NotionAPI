@@ -17,9 +17,6 @@ jobs:
       packages: write
 
     steps:
-      - name: 🔍 Set Package name environment
-        run: echo "PACKAGE_NAME=$(basename $(pwd))" >> $GITHUB_ENV
-
       - name: 🔄 Checkout to the branch
         uses: actions/checkout@v4
 
@@ -31,6 +28,7 @@ jobs:
         uses: akiojin/dotnet-build-github-action@v0.2.12
         with:
           configuration: Release
+          source: "https://nuget.pkg.github.com/username/index.json"
           publish: true
 
       - name: 🏷️ Version Tagging

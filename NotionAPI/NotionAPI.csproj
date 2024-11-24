@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageId>NotionAPI</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>akiojin</Authors>
+    <RepositoryUrl>https://github.com/akiojin/repo</RepositoryUrl>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
