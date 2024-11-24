@@ -37,8 +37,9 @@ jobs:
   
       - name: 🏷️ Version Tagging
         run: |
-          git tag v$VERSION
-          git push origin v$VERSION
+          git tag -f v$(echo $VERSION | grep -oE '^[0-9]+')
+          git tag -f v$VERSION
+          git push origin v$VERSION --force
 
       - name: 🚀 GitHub Release
         run: |
