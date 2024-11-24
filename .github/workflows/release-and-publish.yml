@@ -28,7 +28,7 @@ jobs:
         uses: akiojin/dotnet-build-github-action@v0.2.12
         with:
           configuration: Release
-          source: "https://nuget.pkg.github.com/username/index.json"
+          source: "https://nuget.pkg.github.com/akiojin/index.json"
           publish: true
 
       - name: 🏷️ Version Tagging
