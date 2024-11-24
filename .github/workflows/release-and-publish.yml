@@ -10,7 +10,7 @@ on:
 jobs:
   Release-and-Publish:
     runs-on:
-      - windows-latest
+      - macos-latest
     timeout-minutes: 60
     permissions:
       contents: write
