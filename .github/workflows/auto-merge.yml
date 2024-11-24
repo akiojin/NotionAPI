@@ -1,6 +1,6 @@
 ﻿# (C) Akio Jinsenji
 
-name: Approve & Auto Merge
+name: Auto Merge
 
 on:
   pull_request:
@@ -20,9 +20,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: ✅ approve & auto merge
+      - name: ✅ aAuto merge
         run: |
-          gh pr review --approve "$PR_URL"
           gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
