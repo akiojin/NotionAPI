@@ -1,0 +1,19 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: NotionAPI.Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/NotionAPI.Tests/bin/Debug/net8.0/NotionAPI.Tests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/NotionAPI.Tests",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}

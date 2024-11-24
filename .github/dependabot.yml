@@ -22,3 +22,4 @@ updates:
       - nuget
     schedule:
       interval: "daily"
+    target-branch: "develop"
