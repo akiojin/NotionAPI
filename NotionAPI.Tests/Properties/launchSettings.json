@@ -1,0 +1,12 @@
+{
+	"profiles": {
+		"NotionAPI2": {
+			"commandName": "Project",
+			"launchBrowser": true,
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"NOTION_API_SECRET": "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"
+			}
+		}
+	}
+}

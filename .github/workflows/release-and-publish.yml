@@ -1,0 +1,45 @@
+# (C) Akio Jinsenji
+
+name: Release & Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Release-and-Publish:
+    runs-on:
+      - windows-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: 🔍 Set Package name environment
+        run: echo "PACKAGE_NAME=$(basename $(pwd))" >> $GITHUB_ENV
+
+      - name: 🔄 Checkout to the branch
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: 🏭 .NET build
+        uses: akiojin/dotnet-build-github-action@v0.2.12
+        with:
+          configuration: Release
+          publish: true
+
+      - name: 🏷️ Version Tagging
+        run: |
+          git tag v$VERSION
+          git push origin v$VERSION
+
+      - name: 🚀 GitHub Release
+        run: |
+          gh release create v$VERSION --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

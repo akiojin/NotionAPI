@@ -1,0 +1,43 @@
+# (C) Akio Jinsenji
+
+name: Dependabot auto-merge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: windows-latest
+    if : ${{ github.actor == 'dependabot[bot]' }}
+
+    steps:
+      - name: Dependabot metadata
+        uses: dependabot/fetch-metadata@v2.0.0
+        id: metadata
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+    
+      # 一つ目の承認は Dependabot により行わせ、それと同時に、自動マージを有効にしておく。
+      - name: 🤖 Enable auto-merge & approve for Dependabot PRs
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+      # 二つ目の承認は、予め用意しておいた PAT を使って承認を行う。
+      - name: ✅ Auto approve for Dependabot PRs
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.PULL_REQUEST_AUTO_MERGE_TOKEN }}

@@ -1,0 +1,26 @@
+# (C) Akio Jinsenji
+
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  Build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      
+    steps:
+      - name: 🔄 Checkout to the branch
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: 🏭 .NET build
+        uses: akiojin/dotnet-build-github-action@v0.2.12
