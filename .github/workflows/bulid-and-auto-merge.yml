@@ -1,6 +1,6 @@
 ﻿# (C) Akio Jinsenji
 
-name: Approve & Auto Merge
+name: Build & Auto Merge
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ on:
       - synchronize
 
 jobs:
-  Approve-and-AutoMerge:
+  Build-and-AutoMerge:
     runs-on: windows-latest
 
     steps:
@@ -19,6 +19,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: 🏭 .NET build
+        uses: akiojin/dotnet-build-github-action@v0.2.12
 
       - name: ✅ approve & auto merge
         run: |
