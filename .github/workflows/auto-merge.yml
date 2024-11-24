@@ -11,7 +11,7 @@ on:
       - synchronize
 
 jobs:
-  Build-and-AutoMerge:
+  AutoMerge:
     runs-on: windows-latest
 
     steps:
