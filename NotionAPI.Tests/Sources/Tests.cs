@@ -17,7 +17,7 @@ class Test
 
     async ValueTask UserAPITestAsync()
     {
-        var response = await NotionAPI.UserAsync();
+        var response = await NotionAPI.UsersAsync();
 
         ArgumentNullException.ThrowIfNull(response);
 
