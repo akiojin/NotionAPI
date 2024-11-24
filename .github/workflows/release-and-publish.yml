@@ -33,7 +33,8 @@ jobs:
 
       - name: 🔍 Get version from package.json
         run: |
-          echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+          VERSION=$(jq -r .version package.json)
+          echo $VERSION >> $GITHUB_ENV
           echo "MAJOR_VERSION=$(echo $VERSION | grep -oE '^[0-9]+')" >> $GITHUB_ENV
   
       - name: 🏷️ Version Tagging
