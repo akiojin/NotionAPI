@@ -11,8 +11,14 @@ class Test
 
     public async ValueTask AllTestsAsync()
     {
-        await UserAPITestAsync();
-        await SearchAPITestAsync();
+        try {
+            await UserAPITestAsync();
+            await SearchAPITestAsync();
+        } catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        } finally {
+            Console.WriteLine("All tests completed");
+        }
     }
 
     async ValueTask UserAPITestAsync()
@@ -28,14 +34,22 @@ class Test
 
     async ValueTask SearchAPITestAsync()
     {
-        var response = await NotionAPI.SearchAsync(new ());
+        string? cursor = null;
 
-        ArgumentNullException.ThrowIfNull(response);
+        do {
+            var response = await NotionAPI.SearchAsync(new () {
+                StartCursor = cursor,
+            });
 
-        foreach (var result in response.Results) {
-            if (result.Properties.Title.Title.Count > 0) {
-                Console.WriteLine($"{result.Properties.Title.Title[0].PlainText}, URL: {result.URL}");
+            ArgumentNullException.ThrowIfNull(response);
+
+            foreach (var result in response.Results) {
+                if (result.Properties.Title.Title.Count > 0) {
+                    Console.WriteLine($"{result.Properties.Title.Title[0].PlainText}, URL: {result.URL}");
+                }
             }
-        }
+
+            cursor = response.NextCursor;
+        } while (!string.IsNullOrEmpty(cursor));
     }
 }

@@ -1,20 +1,11 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace NotionAPI;
 
 public partial class NotionAPI
 {
     public async ValueTask<UsersAPIResponse?> UsersAsync()
-    {
-        var response = await httpClient.GetAsync("users");
-
-        response.EnsureSuccessStatusCode();
-
-        var content = await response.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<UsersAPIResponse>(content);
-    }
+        => await GetAsync<UsersAPIResponse>("users");
 
     [Serializable]
     public class UsersAPIResponse
