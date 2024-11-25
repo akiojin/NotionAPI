@@ -3,7 +3,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-public partial class NotionAPI
+public partial class NotionAPIService
 {
     public async ValueTask<SearchAPIResponse?> SearchAsync(SearchAPIRequest request)
         => await PostAsync<SearchAPIRequest, SearchAPIResponse>("search", request);

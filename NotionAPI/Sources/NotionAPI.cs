@@ -3,12 +3,24 @@
 using System.Text.Json;
 using System.Text;
 
-public partial class NotionAPI(HttpClient httpClient)
+public partial class NotionAPIService
 {
     public const string BaseURL = "https://api.notion.com/v1/";
     public const string Version = "2022-06-28";
 
-    readonly HttpClient httpClient = httpClient;
+    readonly HttpClient httpClient;
+
+    static string NotionAPISecret => Environment.GetEnvironmentVariable("NOTION_API_SECRET") ??
+        throw new InvalidOperationException("NOTION_API_SECRET is not set.");
+
+    public NotionAPIService(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+
+        httpClient.BaseAddress = new Uri(BaseURL);
+        httpClient.DefaultRequestHeaders.Add("Authorization", NotionAPISecret);
+        httpClient.DefaultRequestHeaders.Add("Notion-Version", Version);
+    }
 
     async ValueTask<TResponse?> ProcessResponse<TResponse>(Func<ValueTask<HttpResponseMessage>> process)
     {

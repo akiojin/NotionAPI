@@ -6,7 +6,7 @@ using NotionAPI.Tests;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services
-    .AddNotionAPI("NotionAPI")
+    .AddNotionAPIService()
     .AddTransient<Test>();
 
 var host = builder.Build();

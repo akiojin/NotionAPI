@@ -1,13 +1,8 @@
 ﻿namespace NotionAPI.Tests;
 
-class Test
+public class Test(NotionAPIService notionService)
 {
-    readonly NotionAPI NotionAPI;
-
-    public Test(NotionAPI notionAPI)
-    {
-        NotionAPI = notionAPI;
-    }
+    readonly NotionAPIService NotionService = notionService;
 
     public async ValueTask AllTestsAsync()
     {
@@ -23,7 +18,7 @@ class Test
 
     async ValueTask UserAPITestAsync()
     {
-        var response = await NotionAPI.UsersAsync();
+        var response = await NotionService.UsersAsync();
 
         ArgumentNullException.ThrowIfNull(response);
 
@@ -37,7 +32,7 @@ class Test
         string? cursor = null;
 
         do {
-            var response = await NotionAPI.SearchAsync(new () {
+            var response = await NotionService.SearchAsync(new () {
                 StartCursor = cursor,
             });
 
