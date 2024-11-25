@@ -1,0 +1,44 @@
+﻿###
+# @name List All users
+GET {{baseURL}}/users
+Authorization: Bearer {{$processEnv NOTION_API_SECRET}}
+Notion-Version: 2022-06-28
+
+###
+# @name Search
+POST {{baseURL}}/search
+Content-Type: application/json
+Authorization: {{$processEnv NOTION_API_SECRET}}
+Notion-Version: 2022-06-28
+
+{
+  "query": "",
+  "page_size": 100,
+  "filter": {
+    "property": "object",
+    "value": "page"
+  },
+  "sort": {
+    "direction": "ascending",
+    "timestamp": "last_edited_time"
+  }
+#  },
+#  "start_cursor": {{cursor}}
+}
+
+###
+@cursor = {{Search.response.body.$.next_cursor}}
+@pageID = {{Search.response.body.results.0.id}}
+
+
+###
+# @name RetrievePage
+GET {{baseURL}}/pages/{{pageID}}
+Authorization: Bearer {{$processEnv NOTION_API_SECRET}}
+Notion-Version: 2022-06-28
+
+@PageURL = {{RetrievePage.response.body.$.url}}
+
+###
+# @name Open URL
+GET {{PageURL}}

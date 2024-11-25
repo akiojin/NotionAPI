@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Notion;
+namespace NotionAPI;
 
 [Serializable]
 public class Person
@@ -9,26 +9,51 @@ public class Person
     public string Email { get; set; } = string.Empty;
 }
 
+/// <summary>
+/// The User object represents a user in a Notion workspace.
+/// Users include full workspace members, guests, and integrations.
+/// You can find more information about members and guests in this guide.
+/// <see href="https://developers.notion.com/reference/user"/>
+/// </summary>
 [Serializable]
 public class User
 {
+    /// <summary>
+    /// Always "user"
+    /// </summary>
     [JsonPropertyName("object")]
     public string Object { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Unique identifier for this user.
+    /// </summary>
     [JsonPropertyName("id")]
     public string ID { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Type of the user.
+    /// Possible values are "person" and "bot".
+    /// </summary>
     [JsonPropertyName("type")]
     public string Type { get; set; } = string.Empty;
 
+    /// <summary>
+    /// User's name, as displayed in Notion.
+    /// </summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Chosen avatar image.
+    /// </summary>
     [JsonPropertyName("avatar_url")]
     public string AvatarURL { get; set; } = string.Empty;
 
+    /// <summary>
+    /// <see href="https://developers.notion.com/reference/user#people"/>
+    /// </summary>
     [JsonPropertyName("person")]
-    public Person Person { get; set; } = new Person();
+    public Person Person { get; set; } = new ();
 }
 
 [Serializable]
@@ -38,7 +63,7 @@ public class SearchSort
     public const string Descending = "descending";
 
     [JsonPropertyName("direction")]
-    public string Direction { get; set; } = string.Empty;
+    public string Direction { get; set; } = Ascending;
 
     [JsonPropertyName("timestamp")]
     public string Timestamp => "last_edited_time";
@@ -81,7 +106,7 @@ public class Cover
     public string Type { get; set; } = string.Empty;
 
     [JsonPropertyName("external")]
-    public ExtenalObject External { get; set; } = new();
+    public ExtenalObject External { get; set; } = new ();
 }
 
 [Serializable]
@@ -94,6 +119,13 @@ public class Icon
     public string Emoji { get; set; } = string.Empty;
 }
 
+/// <summary>
+/// Pages, databases, and blocks are either located inside other pages,
+/// databases, and blocks, or are located at the top level of a workspace.
+/// This location is known as the "parent".
+/// Parent information is represented by a consistent parent object throughout the API.
+/// <see href="https://developers.notion.com/reference/parent-object"/>
+/// </summary>
 [Serializable]
 public class Parent
 {
@@ -108,6 +140,9 @@ public class Parent
 
     [JsonPropertyName("workspace")]
     public bool Workspace { get; set; }
+
+    [JsonPropertyName("block_id")]
+    public string BlockID { get; set; } = string.Empty;
 }
 
 [Serializable]
@@ -149,10 +184,10 @@ public class Title
     public string Type { get; set; } = string.Empty;
 
     [JsonPropertyName("text")]
-    public Text Text { get; set; } = new();
+    public Text Text { get; set; } = new ();
 
     [JsonPropertyName("annotations")]
-    public Annotations Annotations { get; set; } = new();
+    public Annotations Annotations { get; set; } = new ();
 
     [JsonPropertyName("plain_text")]
     public string PlainText { get; set; } = string.Empty;
@@ -178,7 +213,7 @@ public class Name
 public class Property
 {
     [JsonPropertyName("title")]
-    public Name Title { get; set; } = new();
+    public Name Title { get; set; } = new ();
 }
 
 [Serializable]
@@ -197,19 +232,19 @@ public class SearchResult
     public DateTime LastEditedTime { get; set; }
 
     [JsonPropertyName("created_by")]
-    public ObjectID CreatedBy { get; set; } = new();
+    public ObjectID CreatedBy { get; set; } = new ();
 
     [JsonPropertyName("last_edited_by")]
-    public ObjectID LastEditedBy { get; set; } = new();
+    public ObjectID LastEditedBy { get; set; } = new ();
 
     [JsonPropertyName("cover")]
-    public Cover Cover { get; set; } = new();
+    public Cover Cover { get; set; } = new ();
 
     [JsonPropertyName("icon")]
-    public Icon Icon { get; set; } = new();
+    public Icon Icon { get; set; } = new ();
 
     [JsonPropertyName("parent")]
-    public Parent Parent { get; set; } = new();
+    public Parent Parent { get; set; } = new ();
 
     [JsonPropertyName("archived")]
     public bool Archived { get; set; }
@@ -218,7 +253,7 @@ public class SearchResult
     public bool InTrash { get; set; }
 
     [JsonPropertyName("properties")]
-    public Property Properties { get; set; } = new();
+    public Property Properties { get; set; } = new ();
 
     [JsonPropertyName("url")]
     public string URL { get; set; } = string.Empty;

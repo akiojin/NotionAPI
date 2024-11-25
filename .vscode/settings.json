@@ -1,2 +1,9 @@
 {
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "baseURL": "https://api.notion.com/v1"
+        },
+        "production": {
+        }
+    }
 }
