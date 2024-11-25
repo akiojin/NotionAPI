@@ -14,6 +14,6 @@ public partial class NotionAPI
         public string Object { get; set; } = string.Empty;
 
         [JsonPropertyName("results")]
-        public List<User> Results { get; set; } = new List<User>();
+        public List<User> Results { get; set; } = [];
     }
 }

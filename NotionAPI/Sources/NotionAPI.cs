@@ -3,14 +3,12 @@
 using System.Text.Json;
 using System.Text;
 
-public partial class NotionAPI
+public partial class NotionAPI(HttpClient httpClient)
 {
-    readonly HttpClient httpClient;
+    public const string BaseURL = "https://api.notion.com/v1/";
+    public const string Version = "2022-06-28";
 
-    public NotionAPI(HttpClient httpClient)
-    {
-        this.httpClient = httpClient;
-    }
+    readonly HttpClient httpClient = httpClient;
 
     async ValueTask<TResponse?> GetAsync<TResponse>(string endpoint)
     {

@@ -39,7 +39,7 @@ public partial class NotionAPI
         /// The only supported property value is "object".
         /// </summary>
         [JsonPropertyName("filter")]
-        public Filter Filter { get; set; } = new();
+        public Filter Filter { get; set; } = new ();
 
         /// <summary>
         /// A cursor value returned in a previous response that If supplied,
@@ -71,7 +71,7 @@ public partial class NotionAPI
         public string Object { get; set; } = string.Empty;
 
         [JsonPropertyName("results")]
-        public List<SearchResult> Results { get; set; } = new List<SearchResult>();
+        public List<SearchResult> Results { get; set; } = [];
 
         [JsonPropertyName("next_cursor")]
         public string NextCursor { get; set; } = string.Empty;
