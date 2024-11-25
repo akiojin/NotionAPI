@@ -10,9 +10,9 @@ public partial class NotionAPI(HttpClient httpClient)
 
     readonly HttpClient httpClient = httpClient;
 
-    async ValueTask<TResponse?> GetAsync<TResponse>(string endpoint)
+    async ValueTask<TResponse?> ProcessResponse<TResponse>(Func<ValueTask<HttpResponseMessage>> process)
     {
-        var response = await httpClient.GetAsync(endpoint);
+        var response = await process();
 
         response.EnsureSuccessStatusCode();
 
@@ -21,19 +21,17 @@ public partial class NotionAPI(HttpClient httpClient)
         return JsonSerializer.Deserialize<TResponse>(content);
     }
 
+    async ValueTask<TResponse?> GetAsync<TResponse>(string endpoint)
+        => await ProcessResponse<TResponse>(async () => await httpClient.GetAsync(endpoint));
+
     async ValueTask<TResponse?> PostAsync<TRequest, TResponse>(string endpoint, TRequest request)
     {
         var json = JsonSerializer.Serialize(request);
         // 明示的に application/json を指定しないと、
         // start_cursor が正常に認識されず、同じカーソル位置が返される。
-        // 恐らくバグ。
+        // 指定しなかった場合、それ以外のパラメーターは正常なので、恐らくバグ。
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await httpClient.PostAsync(endpoint, content);
 
-        response.EnsureSuccessStatusCode();
-
-        var result = await response.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<TResponse>(result);
+        return await ProcessResponse<TResponse>(async () => await httpClient.PostAsync(endpoint, content));
     }
 }
