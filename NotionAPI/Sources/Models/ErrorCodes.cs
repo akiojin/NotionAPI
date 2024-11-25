@@ -1,4 +1,4 @@
-﻿namespace Notion;
+﻿namespace NotionAPI;
 
 public class ErrorCodes
 {

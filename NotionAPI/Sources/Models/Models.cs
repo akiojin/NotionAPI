@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Notion;
+namespace NotionAPI;
 
 [Serializable]
 public class Person

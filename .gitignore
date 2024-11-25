@@ -10,8 +10,7 @@
 *.userosscache
 *.sln.docstates
 
-.reset-client.env.json
-launchSettings.json
+Tests/Properties
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

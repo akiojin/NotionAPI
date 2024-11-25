@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Notion;
+﻿namespace NotionAPI;
 
 public partial class NotionAPI
 {

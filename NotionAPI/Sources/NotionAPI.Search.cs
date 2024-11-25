@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Notion;
+namespace NotionAPI;
 
 public partial class NotionAPI
 {

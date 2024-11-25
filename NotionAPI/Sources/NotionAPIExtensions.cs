@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Notion;
+namespace NotionAPI;
 
 public static class NotionAPIExtensions
 {
